@@ -10,7 +10,7 @@ $('#sizePicker').submit(function (event) {
 })
 
 // When size is submitted by the user, call makeGrid()
-
+//new comment to test git
 //automatically removes the last grid when run
 function makeGrid(x, y) {
   $('tr').remove();
