@@ -10,8 +10,7 @@ $('#sizePicker').submit(function (event) {
 })
 
 // When size is submitted by the user, call makeGrid()
-//new comment to test git
-//comment to test git push
+
 //automatically removes the last grid when run
 function makeGrid(x, y) {
   $('tr').remove();
@@ -35,3 +34,26 @@ $('td').click(function getColor () {
 });
 
 }
+
+let height, width, color;
+const sizePicker = document.querySelector('#sizePicker');
+
+sizePicker.addEventListener('submit', (e) => {
+    e.preventDefault();
+    height = document.querySelector('#inputHeight').value;
+    width = document.querySelector('#inputWidth').value;
+
+    makeGrid(height, width);
+
+})
+
+function makeGrid(x, y) {
+  $('tr').remove();
+
+  for (let i = 1; i <= x; i++) {
+      $('#pixelCanvas').append('<tr id=table' + i + '></tr>');
+
+      for (let j = 1; j <= y; j++) {
+          $('#table' + i).append('<td></td>');
+      }
+  }
