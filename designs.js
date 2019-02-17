@@ -1,59 +1,47 @@
-//values assigned
-let height, width, color;
+// Select size input
+const height = document.querySelector('#inputHeight');
+const width = document.querySelector('#inputWeight');
 
-//if sizePicker is clicked get values of height and width and store them
-$('#sizePicker').submit(function (event) {
-    event.preventDefault();
-    height = $('#inputHeight').val();
-    width = $('#inputWidth').val();
-    makeGrid(height, width);
-})
+const form = document.querySelector('#sizePicker');
 
-// When size is submitted by the user, call makeGrid()
+// Select color input
 
-//automatically removes the last grid when run
-function makeGrid(x, y) {
-  $('tr').remove();
+const colorInput = document.querySelector('#colorPicker');
 
-  for (let i = 1; i <= x; i++) {
-      $('#pixelCanvas').append('<tr id=table' + i + '></tr>');
+//select canvas to insert blocks
+const canvas = document.querySelector('#pixelCanvas');
 
-      for (let j = 1; j <= y; j++) {
-          $('#table' + i).append('<td></td>');
-      }
-  }
+let col = document.createElement("td");
+
+function makeGrid(h, w) {
+    for (let i = 0; i < h; i++) {
+
+        let row = canvas.insertRow(i);
+
+        for (let j = 0; j < w; j++) {
+            row.appendChild(col.cloneNode());
+
+        }
+
+    }
+
+};
 
 
-//adding color
-//if td is clicked run the funciton of getColor
-$('td').click(function getColor () {
-    color =  $('#colorPicker').val();
-//deleted the old one > if there was already a color then it would go back to white and then click again for new color
-    $(this).attr('style', 'background-color:' + color);
-
-});
-
-}
-
-let height, width, color;
-const sizePicker = document.querySelector('#sizePicker');
-
-sizePicker.addEventListener('submit', (e) => {
+//creating the canvas on form submit
+form.addEventListener("submit", function (e) {
     e.preventDefault();
-    height = document.querySelector('#inputHeight').value;
-    width = document.querySelector('#inputWidth').value;
+    //reset canvas on click
+    canvas.innerHTML = ''
 
-    makeGrid(height, width);
+    const inputHeight = height.value;
+    const inputWidth = width.value
+
+    makeGrid(inputHeight, inputWidth);
+    console.log(colorInput.value)
 
 })
 
-function makeGrid(x, y) {
-  $('tr').remove();
-
-  for (let i = 1; i <= x; i++) {
-      $('#pixelCanvas').append('<tr id=table' + i + '></tr>');
-
-      for (let j = 1; j <= y; j++) {
-          $('#table' + i).append('<td></td>');
-      }
-  }
+canvas.addEventListener('click', (e) => {
+    e.target.style.backgroundColor = `${colorInput.value}`;
+})
